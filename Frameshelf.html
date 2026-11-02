@@ -1,0 +1,331 @@
+
+
+
+Website inspiration hub · HTML
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Frameshelf – Website Inspiration Hub</title>
+<meta name="description" content="Discover, save and share website UI inspiration: screenshots, live URLs, tech stacks and color palettes in one place.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com/3.4.17"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.24.7/babel.min.js"></script>
+<style>
+:root{--bg:#F1F3F8;--card:#fff;--ink:#11131B;--mut:#596073;--line:#DFE3ED;--acc:#2D4BFF;--accInk:#fff;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+[data-theme=dark]{--bg:#0C0E14;--card:#151822;--ink:#EEF0F6;--mut:#99A1B5;--line:#262B3A;--acc:#7C93FF;--accInk:#0C0E14;color-scheme:dark}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'DM Sans',system-ui,sans-serif;transition:background .2s}
+.hd{font-family:'Bricolage Grotesque','DM Sans',sans-serif;letter-spacing:-.02em}
+.mut{color:var(--mut)}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;overflow:hidden;transition:transform .2s,border-color .2s}
+.card:hover{transform:translateY(-3px);border-color:var(--acc)}
+.btn,.chip{display:inline-flex;align-items:center;gap:.4rem;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:.5rem 1rem;font-weight:500;font-size:.9rem;cursor:pointer;transition:.15s}
+.btn:hover,.chip:hover{border-color:var(--acc)}
+.btn-p{background:var(--acc);color:var(--accInk);border-color:var(--acc)}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.inp{width:100%;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:.65rem .8rem;font:inherit}
+.badge{font-size:.72rem;padding:.15rem .55rem;border-radius:999px;background:color-mix(in srgb,var(--acc) 14%,transparent);color:var(--acc);font-weight:700}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.shimmer{background:linear-gradient(90deg,var(--line),var(--card),var(--line));background-size:200% 100%;animation:sh 1.2s infinite}
+@keyframes sh{to{background-position:-200% 0}}
+@keyframes pop{from{opacity:0;transform:translateY(12px) scale(.98)}}
+.pop{animation:pop .25s ease}
+@keyframes drift{from{transform:translateY(14px)}to{transform:translateY(-6px)}}
+.drift{animation:drift 4s ease-in-out infinite alternate}
+.hero-shell{position:relative;isolation:isolate;overflow:hidden;border:1px solid var(--line);border-radius:28px;background:radial-gradient(ellipse at 82% 18%,color-mix(in srgb,var(--acc) 16%,transparent),transparent 40%),linear-gradient(135deg,var(--card),color-mix(in srgb,var(--bg) 68%,var(--card)));box-shadow:0 24px 70px -48px rgba(24,35,75,.38)}
+.hero-shell:after{content:"";position:absolute;z-index:-1;width:320px;height:320px;right:-110px;bottom:-180px;border:1px solid color-mix(in srgb,var(--acc) 22%,transparent);border-radius:50%;box-shadow:0 0 0 30px color-mix(in srgb,var(--acc) 4%,transparent),0 0 0 60px color-mix(in srgb,var(--acc) 3%,transparent)}
+.eyebrow{display:inline-flex;align-items:center;gap:.5rem;padding:.4rem .7rem;border:1px solid var(--line);border-radius:999px;background:color-mix(in srgb,var(--card) 78%,transparent);font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+.eyebrow i{width:7px;height:7px;border-radius:50%;background:#10B981;box-shadow:0 0 0 4px color-mix(in srgb,#10B981 16%,transparent)}
+.hero-art{min-height:350px;position:relative}
+.hero-art .card{border-radius:18px;border-color:color-mix(in srgb,var(--line) 75%,transparent)}
+.hero-art .card:nth-child(1){transform:rotate(-5deg)}
+.hero-art .card:nth-child(2){transform:rotate(4deg)}
+.hero-art .card:nth-child(3){transform:rotate(-2deg)}
+.hero-stats{display:flex;gap:0;margin-top:1.75rem;padding-top:1.15rem;border-top:1px solid var(--line)}
+.hero-stat{padding:0 1.25rem;border-right:1px solid var(--line)}
+.hero-stat:first-child{padding-left:0}
+.hero-stat:last-child{border:0}
+.card{border-radius:18px;box-shadow:0 8px 26px -22px rgba(15,23,42,.35)}
+.card:hover{box-shadow:0 18px 38px -25px color-mix(in srgb,var(--acc) 38%,transparent)}
+.card-preview{position:relative}
+.card-preview:after{content:"";position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,.03),transparent 35%,rgba(0,0,0,.08))}
+.card-action{font-size:.78rem;font-weight:700;color:var(--acc);white-space:nowrap}
+.section-kicker{font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--acc)}
+.inp{transition:border-color .15s,box-shadow .15s}
+.inp:focus{border-color:var(--acc);box-shadow:0 0 0 4px color-mix(in srgb,var(--acc) 12%,transparent);outline:0}
+.btn,.chip{transition:transform .15s,border-color .15s,background .15s,box-shadow .15s}
+.btn:hover,.chip:hover{transform:translateY(-1px)}
+.btn-p{box-shadow:0 8px 20px -12px var(--acc)}
+.nav-desktop-only{display:none}
+.nav-mobile-only{display:inline-flex}
+@media(max-width:640px){.hero-art{min-height:250px}.hero-shell{border-radius:22px}.hero-stats{gap:.7rem}.hero-stat{padding:0 .7rem;font-size:.75rem}}
+@media(min-width:640px){.nav-desktop-only{display:inline-flex}.nav-mobile-only{display:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const {useState,useEffect,useMemo,useRef,useContext,createContext}=React;
+const CATS=['Portfolio','SaaS','E-commerce','Landing page','Dashboard','Blog'];
+const TECH=['React','Next.js','Vue','Tailwind','Framer Motion','GSAP'];
+const R=[
+['Northwind Studio','Portfolio',['React','GSAP'],['#0F1B3D','#F2A541','#F7F3E8','#E4572E'],482,'Oversized type and a horizontal case-study scroller.','Aarav','2026-10-21'],
+['Lumen Analytics','SaaS',['Next.js','Tailwind'],['#0B1220','#3B82F6','#E2E8F0','#22D3EE'],431,'A calm product tour with live-looking charts in the hero.','Meera','2026-10-18'],
+['Terra Goods','E-commerce',['React','Framer Motion'],['#2B3A2F','#C9D6A3','#FBF7EF','#D9822B'],397,'Earthy storefront with a quick-view drawer on every product.','Kabir','2026-10-12'],
+['Pulse Launch','Landing page',['Vue','GSAP'],['#1A0F2E','#8B5CF6','#F5F3FF','#F472B6'],366,'Scroll-linked launch page with a bold violet gradient.','Isha','2026-10-30'],
+['Ledger Board','Dashboard',['React','Tailwind'],['#101418','#34D399','#E5E7EB','#FBBF24'],341,'Dense finance dashboard that stays readable at a glance.','Rohan','2026-10-25'],
+['Fieldnotes','Blog',['Next.js'],['#F8F5F0','#1F2937','#B45309','#9CA3AF'],318,'A reading-first blog with generous margins and sidenotes.','Anaya','2026-09-29'],
+['Orbit Fitness','Landing page',['React','Framer Motion'],['#111827','#F97316','#FFEDD5','#FACC15'],296,'High-energy sign-up funnel with animated progress rings.','Dev','2026-10-02'],
+['Atlas Travel','E-commerce',['Vue','Tailwind'],['#0E3B43','#F4D35E','#EEF0EB','#EE6C4D'],274,'Trip booking with a map-first search and sticky filters.','Sana','2026-10-08'],
+['Mono Folio','Portfolio',['Next.js','Tailwind'],['#EDEDED','#111111','#FF3B30','#6B7280'],251,'Black-and-white portfolio with one red accent.','Vikram','2026-10-28'],
+['Kite CRM','SaaS',['React','Tailwind'],['#EFF6FF','#1D4ED8','#0F172A','#60A5FA'],233,'Friendly pipeline board with drag-and-drop deal cards.','Tara','2026-09-21'],
+['Brew Journal','Blog',['Vue'],['#3E2C23','#D8B589','#F6EEE3','#8C5A3C'],209,'Coffee magazine with warm tones and tactile cards.','Neel','2026-10-15'],
+['Gridwork','Dashboard',['Next.js','GSAP'],['#0A0A0F','#EC4899','#A78BFA','#E5E7EB'],188,'Neon admin panel with smooth animated metric tiles.','Zoya','2026-10-31']
+];
+const SEED=R.map((r,i)=>({id:i+1,t:r[0],c:r[1],tech:r[2],p:r[3],l:r[4],d:r[5],by:r[6],date:r[7],u:'https://example.com'}));
+const ls=(k,v)=>{try{if(v===undefined){const x=localStorage.getItem(k);return x?JSON.parse(x):null}localStorage.setItem(k,JSON.stringify(v))}catch(e){return null}};
+const Ctx=createContext();const useC=()=>useContext(Ctx);
+
+function Provider({children}){
+ const[sites,setSites]=useState(()=>ls('fs_sites')||SEED);
+ const[favs,setFavs]=useState(()=>ls('fs_favs')||[3,7]);
+ const[likes,setLikes]=useState(()=>ls('fs_likes')||[]);
+ const[user,setUser]=useState(()=>ls('fs_user'));
+ const[theme,setTheme]=useState(()=>ls('fs_theme')||(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'));
+ const[modal,setModal]=useState(null);
+ const[toast,setToast]=useState('');
+ const[f,setF]=useState({q:'',cat:'All',tech:[],sort:'Trending'});
+ useEffect(()=>{document.documentElement.dataset.theme=theme;ls('fs_theme',theme)},[theme]);
+ useEffect(()=>{ls('fs_sites',sites)},[sites]);useEffect(()=>{ls('fs_favs',favs)},[favs]);
+ useEffect(()=>{ls('fs_likes',likes)},[likes]);useEffect(()=>{ls('fs_user',user)},[user]);
+ const say=m=>{setToast(m);clearTimeout(window._t);window._t=setTimeout(()=>setToast(''),2200)};
+ const guard=()=>{if(!user){setModal({type:'auth'});say('Log in to continue');return true}return false};
+ const tg=(set,id)=>set(a=>a.includes(id)?a.filter(x=>x!==id):[...a,id]);
+ const v={sites,setSites,favs,likes,user,setUser,theme,setTheme,modal,setModal,say,f,setF,
+  fav:id=>{if(!guard())tg(setFavs,id)},like:id=>{if(!guard())tg(setLikes,id)},
+  count:s=>s.l+(likes.includes(s.id)?1:0),
+  share:async s=>{const url=location.href.split('#')[0]+'#explore';try{if(navigator.share)await navigator.share({title:s.t,url});else{await navigator.clipboard.writeText(url);say('Link copied')}}catch(e){say('Link ready to share')}}};
+ return <Ctx.Provider value={v}>{children}
+  <div aria-live="polite" className="fixed left-1/2 -translate-x-1/2 bottom-6 z-[60]">{toast&&<div className="pop btn btn-p shadow-lg">{toast}</div>}</div></Ctx.Provider>;
+}
+
+const Lazy=({children})=>{const r=useRef();const[v,setV]=useState(false);
+ useEffect(()=>{const o=new IntersectionObserver(e=>{if(e[0].isIntersecting){setV(true);o.disconnect()}},{rootMargin:'200px'});r.current&&o.observe(r.current);return()=>o.disconnect()},[]);
+ return <div ref={r}>{v?children:<div className="shimmer" style={{aspectRatio:'16/10'}}/>}</div>};
+
+function Thumb({s}){const[a,b,c,d]=s.p,k=s.id%4;
+ const bar=(w,h,bg,x)=><i style={{display:'block',width:w,height:h,background:bg,borderRadius:4,...x}}/>;
+ return <div style={{background:a,aspectRatio:'16/10'}} className="p-3 flex flex-col gap-2 overflow-hidden" role="img" aria-label={`Preview of ${s.t}`}>
+  <div className="flex items-center gap-1">{[b,c,d].map((x,i)=><i key={i} style={{width:6,height:6,borderRadius:9,background:x}}/>)}<span className="flex-1"/>{bar(34,5,c,{opacity:.5})}</div>
+  {k===0&&<div className="flex flex-1 items-center gap-3"><div className="flex-1 grid gap-2">{bar('85%',14,c)}{bar('55%',14,c)}{bar('40%',6,c,{opacity:.6})}{bar(46,12,b,{borderRadius:9})}</div><i style={{width:'36%',aspectRatio:'1',borderRadius:'50%',background:b}}/></div>}
+  {k===1&&<div className="flex-1 flex flex-col gap-2 justify-center items-center">{bar('70%',14,c)}{bar('45%',6,c,{opacity:.6})}<div className="grid grid-cols-3 gap-2 w-full mt-1">{[b,d,c].map((x,i)=><i key={i} style={{height:34,background:x,borderRadius:6,opacity:.9}}/>)}</div></div>}
+  {k===2&&<div className="flex-1 grid grid-cols-2 gap-2">{[b,c,d,b].map((x,i)=><div key={i} className="grid gap-1 content-end" style={{background:x,borderRadius:6,padding:6,opacity:i%2?.85:1}}>{bar('60%',5,a)}{bar('30%',5,a,{opacity:.6})}</div>)}</div>}
+  {k===3&&<div className="flex-1 flex gap-2"><div style={{width:'22%',background:c,opacity:.12,borderRadius:6}}/><div className="flex-1 flex items-end gap-1.5">{[40,70,50,90,60,80].map((h,i)=><i key={i} style={{flex:1,height:h+'%',background:i%2?b:d,borderRadius:4}}/>)}</div></div>}
+ </div>};
+
+function Palette({p}){const{say}=useC();
+ return <div className="flex gap-2 flex-wrap">{p.map(h=><button key={h} aria-label={`Copy ${h}`} onClick={async()=>{try{await navigator.clipboard.writeText(h)}catch(e){}say('Copied '+h)}}
+  className="flex items-center gap-2 chip" style={{padding:'.3rem .7rem .3rem .3rem'}}><i style={{width:22,height:22,borderRadius:99,background:h,border:'1px solid var(--line)'}}/>{h}</button>)}</div>};
+
+function Card({s}){const{favs,likes,fav,like,count,setModal}=useC();
+ return <article className="card">
+  <button className="card-preview block w-full text-left" onClick={()=>setModal({type:'detail',id:s.id})} aria-label={`Open ${s.t}`}><Lazy><Thumb s={s}/></Lazy></button>
+  <div className="p-4"><div className="flex items-start justify-between gap-2">
+   <div><h3 className="hd font-bold text-lg leading-tight">{s.t}</h3><p className="text-sm mut mt-1">{s.c} <span aria-hidden="true">·</span> by {s.by}</p></div>
+   <div className="flex gap-1 shrink-0">
+    <button className="btn" style={{padding:'.3rem .6rem'}} aria-pressed={likes.includes(s.id)} aria-label="Like" onClick={()=>like(s.id)}><span style={{color:likes.includes(s.id)?'#E11D48':'inherit'}}>{likes.includes(s.id)?'♥':'♡'}</span>{count(s)}</button>
+    <button className="btn" style={{padding:'.3rem .6rem'}} aria-pressed={favs.includes(s.id)} aria-label="Save to favorites" onClick={()=>fav(s.id)}>{favs.includes(s.id)?'★':'☆'}</button></div></div>
+   <div className="flex gap-1.5 mt-3 flex-wrap">{s.tech.map(t=><span className="badge" key={t}>{t}</span>)}</div>
+   <div className="flex items-center justify-between gap-2 mt-4 pt-3" style={{borderTop:'1px solid var(--line)'}}>
+    <span className="text-xs mut">Added {s.date}</span>
+    <button className="card-action" onClick={()=>setModal({type:'detail',id:s.id})}>View details <span aria-hidden="true">→</span></button>
+   </div></div></article>};
+
+function Grid({list,inf}){const[n,setN]=useState(6);const r=useRef();
+ useEffect(()=>{setN(6)},[list.length]);
+ useEffect(()=>{if(!inf)return;const o=new IntersectionObserver(e=>e[0].isIntersecting&&setN(x=>x+6),{rootMargin:'300px'});r.current&&o.observe(r.current);return()=>o.disconnect()},[inf,list.length]);
+ const shown=inf?list.slice(0,n):list;
+ if(!list.length)return <div className="card p-10 text-center"><h3 className="hd text-xl font-bold">Nothing matches yet</h3><p className="mut mt-1">Try a different keyword or clear your filters.</p></div>;
+ return <><div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{shown.map(s=><Card key={s.id} s={s}/>)}</div>
+  {inf&&n<list.length&&<div ref={r} className="text-center mut py-8">Loading more…</div>}</>};
+
+function Modal({title,onClose,children,wide}){
+ useEffect(()=>{const h=e=>e.key==='Escape'&&onClose();addEventListener('keydown',h);document.body.style.overflow='hidden';return()=>{removeEventListener('keydown',h);document.body.style.overflow=''}},[]);
+ return <div className="fixed inset-0 z-50 flex items-end sm:items-center justify-center p-0 sm:p-4" style={{background:'rgba(8,10,16,.6)'}} onMouseDown={e=>e.target===e.currentTarget&&onClose()}>
+  <div role="dialog" aria-modal="true" aria-label={title} className={`pop card w-full ${wide?'max-w-3xl':'max-w-md'} max-h-[92vh] overflow-y-auto p-5 sm:p-6`} style={{borderRadius:18}}>
+   <div className="flex justify-between items-center mb-4"><h2 className="hd text-2xl font-bold">{title}</h2><button className="btn" onClick={onClose} aria-label="Close">✕</button></div>{children}</div></div>};
+
+const Field=({label,err,children})=><label className="block mb-3"><span className="text-sm font-medium">{label}</span>{children}{err&&<span role="alert" className="text-sm" style={{color:'#E11D48'}}>{err}</span>}</label>;
+const useForm=i=>{const[v,s]=useState(i);return[v,k=>e=>s(x=>({...x,[k]:e.target.value})),s]};
+
+function AuthModal(){const{setModal,setUser,say}=useC();const[mode,setMode]=useState('login');const[v,on]=useForm({name:'',email:'',pw:''});const[er,setEr]=useState({});
+ const go=e=>{e.preventDefault();const x={};
+  if(mode==='register'&&v.name.trim().length<2)x.name='Enter your name.';
+  if(!/^\S+@\S+\.\S+$/.test(v.email))x.email='Enter a valid email address.';
+  if(mode!=='forgot'&&v.pw.length<6)x.pw='Use at least 6 characters.';
+  setEr(x);if(Object.keys(x).length)return;
+  if(mode==='forgot'){say('Reset link sent to '+v.email);setMode('login');return}
+  setUser({name:v.name.trim()||v.email.split('@')[0],email:v.email,admin:/^admin/i.test(v.email)});setModal(null);say(mode==='login'?'Welcome back':'Account created')};
+ return <Modal title={{login:'Log in',register:'Create account',forgot:'Reset password'}[mode]} onClose={()=>setModal(null)}>
+  <form onSubmit={go} noValidate>
+   {mode==='register'&&<Field label="Name" err={er.name}><input className="inp" value={v.name} onChange={on('name')} autoComplete="name"/></Field>}
+   <Field label="Email" err={er.email}><input className="inp" type="email" value={v.email} onChange={on('email')} autoComplete="email"/></Field>
+   {mode!=='forgot'&&<Field label="Password" err={er.pw}><input className="inp" type="password" value={v.pw} onChange={on('pw')} autoComplete="current-password"/></Field>}
+   <button className="btn btn-p w-full justify-center" type="submit">{{login:'Log in',register:'Create account',forgot:'Send reset link'}[mode]}</button></form>
+  <div className="flex justify-between mt-4 text-sm">
+   {mode==='login'?<><button className="underline" onClick={()=>setMode('register')}>Create an account</button><button className="underline" onClick={()=>setMode('forgot')}>Forgot password?</button></>:<button className="underline" onClick={()=>setMode('login')}>Back to log in</button>}</div>
+  <p className="text-xs mut mt-4">Demo tip: use an email starting with “admin” to open the admin dashboard.</p></Modal>};
+
+function UploadModal(){const{setModal,setSites,user,say}=useC();const[v,on,set]=useForm({t:'',u:'',c:CATS[0],d:'',tech:[],p:['#111827','#2D4BFF','#F1F3F8','#F59E0B']});const[er,setEr]=useState({});
+ const go=e=>{e.preventDefault();const x={};
+  if(v.t.trim().length<3)x.t='Give it a title of at least 3 characters.';
+  if(!/^https?:\/\/.+\..+/.test(v.u))x.u='Enter a full URL starting with http:// or https://.';
+  if(v.d.trim().length<10)x.d='Describe what makes it inspiring (10+ characters).';
+  setEr(x);if(Object.keys(x).length)return;
+  setSites(s=>[{id:Date.now(),t:v.t.trim(),c:v.c,tech:v.tech.length?v.tech:['React'],p:v.p,l:0,d:v.d.trim(),by:user.name,date:new Date().toISOString().slice(0,10),u:v.u},...s]);
+  setModal(null);say('Published to Explore');location.hash='explore'};
+ return <Modal title="Upload a website" wide onClose={()=>setModal(null)}><form onSubmit={go} noValidate>
+  <div className="grid sm:grid-cols-2 gap-x-4">
+   <Field label="Title" err={er.t}><input className="inp" value={v.t} onChange={on('t')}/></Field>
+   <Field label="Live URL" err={er.u}><input className="inp" value={v.u} onChange={on('u')} placeholder="https://"/></Field>
+   <Field label="Category"><select className="inp" value={v.c} onChange={on('c')}>{CATS.map(c=><option key={c}>{c}</option>)}</select></Field>
+   <Field label="Color palette"><div className="flex gap-2">{v.p.map((h,i)=><input key={i} type="color" aria-label={`Color ${i+1}`} value={h} onChange={e=>set(x=>({...x,p:x.p.map((q,j)=>j===i?e.target.value:q)}))} style={{width:44,height:40,border:0,background:'none'}}/>)}</div></Field></div>
+  <p className="text-sm font-medium mb-2">Tech stack</p><div className="flex gap-2 flex-wrap mb-3">{TECH.map(t=><button type="button" key={t} className="chip" aria-pressed={v.tech.includes(t)} onClick={()=>set(x=>({...x,tech:x.tech.includes(t)?x.tech.filter(y=>y!==t):[...x.tech,t]}))}>{t}</button>)}</div>
+  <Field label="Why it’s inspiring" err={er.d}><textarea className="inp" rows="3" value={v.d} onChange={on('d')}/></Field>
+  <button className="btn btn-p" type="submit">Publish website</button></form></Modal>};
+
+function Detail({id}){const{sites,setModal,favs,likes,fav,like,count,share}=useC();const s=sites.find(x=>x.id===id);const[dev,setDev]=useState('100%');
+ if(!s)return null;
+ return <Modal title={s.t} wide onClose={()=>setModal(null)}>
+  <div className="flex gap-2 mb-3" role="group" aria-label="Responsive preview">{[['Desktop','100%'],['Tablet','68%'],['Mobile','38%']].map(([n,w])=><button key={n} className="chip" aria-pressed={dev===w} onClick={()=>setDev(w)}>{n}</button>)}</div>
+  <div className="rounded-xl p-4 flex justify-center" style={{background:'var(--bg)'}}><div style={{width:dev,transition:'width .3s'}} className="rounded-lg overflow-hidden border" ><Thumb s={s}/></div></div>
+  <p className="mt-4">{s.d}</p><p className="text-sm mut mt-1">Shared by {s.by} on {s.date}</p>
+  <h3 className="hd font-bold mt-5 mb-2">Color palette</h3><Palette p={s.p}/>
+  <h3 className="hd font-bold mt-5 mb-2">Tech stack</h3><div className="flex gap-1.5 flex-wrap"><span className="badge">{s.c}</span>{s.tech.map(t=><span key={t} className="badge">{t}</span>)}</div>
+  <div className="flex gap-2 flex-wrap mt-6">
+   <a className="btn btn-p" href={s.u} target="_blank" rel="noopener noreferrer">Visit live site</a>
+   <button className="btn" aria-pressed={likes.includes(s.id)} onClick={()=>like(s.id)}>{likes.includes(s.id)?'♥':'♡'} {count(s)}</button>
+   <button className="btn" aria-pressed={favs.includes(s.id)} onClick={()=>fav(s.id)}>{favs.includes(s.id)?'★ Saved':'☆ Save'}</button>
+   <button className="btn" onClick={()=>share(s)}>Share</button></div></Modal>};
+
+function Nav({route}){const{theme,setTheme,user,setUser,setModal,say}=useC();const[open,setOpen]=useState(false);
+ const links=[['home','Home'],['explore','Explore'],['categories','Categories'],['favorites','Favorites'],['about','About'],['contact','Contact']];
+ const lk=(k,n)=><a key={k} href={'#'+k} onClick={()=>setOpen(false)} aria-current={route===k?'page':undefined} className="px-3 py-2 rounded-full text-sm font-medium" style={route===k?{background:'var(--ink)',color:'var(--bg)'}:{}}>{n}</a>;
+ return <header className="sticky top-0 z-40" style={{background:'color-mix(in srgb,var(--bg) 88%,transparent)',backdropFilter:'blur(12px)',borderBottom:'1px solid var(--line)'}}>
+  <nav className="max-w-6xl mx-auto px-4 h-16 flex items-center gap-3" aria-label="Main">
+   <a href="#home" className="hd font-extrabold text-xl flex items-center gap-2"><span className="flex gap-0.5">{['#2D4BFF','#F59E0B','#10B981'].map(c=><i key={c} style={{width:8,height:20,background:c,borderRadius:3}}/>)}</span>Frameshelf</a>
+   <div className="hidden lg:flex ml-4 gap-1">{links.map(([k,n])=>lk(k,n))}{user&&user.admin&&lk('admin','Admin')}</div><span className="flex-1"/>
+   <button className="btn" aria-label="Toggle dark mode" onClick={()=>setTheme(theme==='dark'?'light':'dark')}>{theme==='dark'?'☀':'☾'}</button>
+   <button className="btn btn-p nav-desktop-only" onClick={()=>user?setModal({type:'upload'}):(setModal({type:'auth'}),say('Log in to upload'))}>Upload</button>
+   {user?<a href="#profile" className="btn" aria-label="Profile"><span className="badge">{user.name[0].toUpperCase()}</span><span className="hidden sm:inline">{user.name}</span></a>:<button className="btn nav-desktop-only" onClick={()=>setModal({type:'auth'})}>Log in</button>}
+   <button className="btn lg:hidden" aria-label="Menu" aria-expanded={open} onClick={()=>setOpen(!open)}>☰</button></nav>
+  {open&&<div className="lg:hidden px-4 pb-3 flex flex-wrap gap-1">{links.map(([k,n])=>lk(k,n))}{user&&lk('profile','Profile')}{user&&user.admin&&lk('admin','Admin')}
+   <button className="btn btn-p nav-mobile-only" onClick={()=>{setOpen(false);user?setModal({type:'upload'}):(setModal({type:'auth'}),say('Log in to upload'))}}>Upload</button>
+   {!user&&<button className="btn nav-mobile-only" onClick={()=>{setOpen(false);setModal({type:'auth'})}}>Log in</button>}
+   {user&&<button className="btn" onClick={()=>{setUser(null);setOpen(false)}}>Log out</button>}</div>}
+ </header>};
+
+function Home(){const{sites,setF,count}=useC();const[q,setQ]=useState('');
+ const top=[...sites].sort((a,b)=>count(b)-count(a)).slice(0,4);const latest=[...sites].sort((a,b)=>b.date.localeCompare(a.date)).slice(0,3);
+ const go=e=>{e.preventDefault();setF(f=>({...f,q}));location.hash='explore'};
+ return <>
+  <section className="max-w-6xl mx-auto px-4 pt-8 pb-14">
+   <div className="hero-shell grid lg:grid-cols-[1.02fr_.98fr] gap-6 lg:gap-0 items-center px-6 py-8 sm:px-10 sm:py-10 lg:px-12">
+    <div className="relative z-10 py-3">
+     <span className="eyebrow"><i/> Curated web inspiration</span>
+     <h1 className="hd font-extrabold text-5xl sm:text-6xl leading-[1.02] mt-5 max-w-2xl">Find your next <span style={{color:'var(--acc)'}}>great idea.</span></h1>
+     <p className="mut text-lg mt-5 max-w-xl">A thoughtfully curated library of websites, palettes and tech stacks to help you make your next project your best one.</p>
+     <form onSubmit={go} role="search" className="mt-7 flex gap-2 max-w-xl">
+      <input className="inp" style={{borderRadius:999,padding:'.85rem 1.2rem'}} aria-label="Search inspiration" placeholder="Try “dark dashboard” or “React portfolio”" value={q} onChange={e=>setQ(e.target.value)}/>
+      <button className="btn btn-p" type="submit">Explore <span aria-hidden="true">→</span></button></form>
+     <div className="hero-stats text-sm mut">
+      <span className="hero-stat"><b className="hd text-xl" style={{color:'var(--ink)'}}>{sites.length}</b><br/>Websites</span>
+      <span className="hero-stat"><b className="hd text-xl" style={{color:'var(--ink)'}}>{CATS.length}</b><br/>Categories</span>
+      <span className="hero-stat"><b className="hd text-xl" style={{color:'var(--ink)'}}>{TECH.length}</b><br/>Tech stacks</span>
+     </div>
+    </div>
+    <div className="hero-art" aria-hidden="true">
+     {top.slice(0,3).map((s,i)=><div key={s.id} className="card drift absolute" style={{width:'66%',left:[0,'30%','8%'][i],top:[0,'28%','58%'][i],animationDelay:i*.6+'s',boxShadow:'0 24px 50px -22px rgba(0,0,0,.32)'}}><Thumb s={s}/></div>)}
+     <div className="absolute bottom-1 right-0 sm:right-4 card px-3 py-2 flex items-center gap-2" style={{zIndex:4,boxShadow:'0 12px 30px -20px rgba(0,0,0,.4)'}}>
+      <span className="badge">✦ Editor’s pick</span><span className="text-xs font-medium">{top[0]?.t||'Fresh inspiration'}</span>
+     </div>
+    </div>
+   </div>
+  </section>
+  <section className="max-w-6xl mx-auto px-4 pb-14"><div className="flex items-end justify-between mb-5"><div><p className="section-kicker mb-1">Popular right now</p><h2 className="hd font-bold text-3xl">Trending this week</h2><p className="mut">Most-liked designs right now.</p></div><a className="btn" href="#explore">See all <span aria-hidden="true">→</span></a></div>
+   <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">{top.map(s=><Card key={s.id} s={s}/>)}</div></section>
+  <section className="max-w-6xl mx-auto px-4 pb-14"><h2 className="hd font-bold text-3xl mb-5">Browse by category</h2>
+   <div className="flex flex-wrap gap-2">{CATS.map(c=><a key={c} href="#explore" className="btn" onClick={()=>setF(f=>({...f,cat:c,q:''}))}>{c}</a>)}</div></section>
+  <section className="max-w-6xl mx-auto px-4 pb-16"><h2 className="hd font-bold text-3xl mb-5">Fresh additions</h2><div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{latest.map(s=><Card key={s.id} s={s}/>)}</div></section></>};
+
+function Explore(){const{sites,f,setF,count}=useC();
+ const list=useMemo(()=>{const terms=f.q.toLowerCase().trim().split(/\s+/).filter(Boolean);
+  let l=sites.filter(s=>(f.cat==='All'||s.c===f.cat)&&f.tech.every(t=>s.tech.includes(t))&&terms.every(term=>(s.t+' '+s.c+' '+s.tech.join(' ')+' '+s.d+' '+s.by).toLowerCase().includes(term)));
+  return l.sort((a,b)=>f.sort==='Newest'?b.date.localeCompare(a.date):f.sort==='A to Z'?a.t.localeCompare(b.t):count(b)-count(a))},[sites,f]);
+ return <div className="max-w-6xl mx-auto px-4 py-10"><h1 className="hd font-extrabold text-4xl">Explore</h1><p className="mut mt-1">{list.length} websites match.</p>
+  <div className="grid gap-3 mt-6 md:grid-cols-[1fr_180px]"><input className="inp" aria-label="Search" placeholder="Search by name, category or tech" value={f.q} onChange={e=>setF({...f,q:e.target.value})}/>
+   <select className="inp" aria-label="Sort" value={f.sort} onChange={e=>setF({...f,sort:e.target.value})}>{['Trending','Newest','A to Z'].map(o=><option key={o}>{o}</option>)}</select></div>
+  <div className="flex gap-2 flex-wrap mt-4">{['All',...CATS].map(c=><button key={c} className="chip" aria-pressed={f.cat===c} onClick={()=>setF({...f,cat:c})}>{c}</button>)}</div>
+  <div className="flex gap-2 flex-wrap mt-2 mb-7">{TECH.map(t=><button key={t} className="chip" aria-pressed={f.tech.includes(t)} onClick={()=>setF({...f,tech:f.tech.includes(t)?f.tech.filter(x=>x!==t):[...f.tech,t]})}>{t}</button>)}
+   {(f.cat!=='All'||f.tech.length>0||f.q)&&<button className="btn" onClick={()=>setF({q:'',cat:'All',tech:[],sort:f.sort})}>Clear filters</button>}</div>
+  <Grid list={list} inf/></div>};
+
+const Categories=()=>{const{sites,setF}=useC();
+ return <div className="max-w-6xl mx-auto px-4 py-10"><h1 className="hd font-extrabold text-4xl">Categories</h1><p className="mut mt-1 mb-7">Pick a type of site to see its best examples.</p>
+  <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{CATS.map(c=>{const m=sites.filter(s=>s.c===c);return <a key={c} href="#explore" onClick={()=>setF(f=>({...f,cat:c,q:''}))} className="card block">
+   <div className="grid grid-cols-2">{m.slice(0,2).map(s=><div key={s.id}><Thumb s={s}/></div>)}</div><div className="p-4"><h3 className="hd font-bold text-xl">{c}</h3><p className="mut text-sm">{m.length} websites</p></div></a>})}</div></div>};
+
+function Favorites(){const{sites,favs,user,setModal}=useC();
+ return <div className="max-w-6xl mx-auto px-4 py-10"><h1 className="hd font-extrabold text-4xl">Favorites</h1>
+  <p className="mut mt-1 mb-7">{user?'Everything you’ve saved lives here.':'Log in to keep your saved designs across visits.'}</p>
+  {!user&&<button className="btn btn-p mb-6" onClick={()=>setModal({type:'auth'})}>Log in</button>}
+  {favs.length?<Grid list={sites.filter(s=>favs.includes(s.id))}/>:<div className="card p-10 text-center"><h3 className="hd text-xl font-bold">No favorites yet</h3><p className="mut mt-1 mb-4">Tap the star on any card to save it.</p><a className="btn btn-p" href="#explore">Explore designs</a></div>}</div>};
+
+function Profile(){const{user,setUser,sites,favs,likes,setModal}=useC();
+ if(!user)return <div className="max-w-md mx-auto px-4 py-16 text-center"><h1 className="hd font-extrabold text-3xl">Your profile</h1><p className="mut my-3">Log in to see your uploads and activity.</p><button className="btn btn-p" onClick={()=>setModal({type:'auth'})}>Log in</button></div>;
+ const mine=sites.filter(s=>s.by===user.name);
+ return <div className="max-w-6xl mx-auto px-4 py-10"><div className="card p-6 flex flex-wrap items-center gap-5"><span className="hd font-extrabold text-3xl grid place-items-center" style={{width:72,height:72,borderRadius:99,background:'var(--acc)',color:'var(--accInk)'}}>{user.name[0].toUpperCase()}</span>
+  <div className="flex-1"><h1 className="hd font-extrabold text-3xl">{user.name}</h1><p className="mut">{user.email}{user.admin&&' · Admin'}</p></div>
+  <button className="btn" onClick={()=>{setUser(null);location.hash='home'}}>Log out</button></div>
+  <div className="grid grid-cols-3 gap-4 my-6">{[['Uploads',mine.length],['Saved',favs.length],['Liked',likes.length]].map(([n,v])=><div key={n} className="card p-4"><div className="hd font-extrabold text-3xl">{v}</div><div className="mut text-sm">{n}</div></div>)}</div>
+  <h2 className="hd font-bold text-2xl mb-4">Your uploads</h2>{mine.length?<Grid list={mine}/>:<div className="card p-8 text-center"><p className="mut mb-3">You haven’t shared a website yet.</p><button className="btn btn-p" onClick={()=>setModal({type:'upload'})}>Upload your first</button></div>}</div>};
+
+function Admin(){const{user,sites,setSites,say,count}=useC();
+ if(!user||!user.admin)return <div className="max-w-md mx-auto px-4 py-16 text-center"><h1 className="hd font-extrabold text-3xl">Admins only</h1><p className="mut mt-2">Log in with an email that starts with “admin” to view this page.</p></div>;
+ return <div className="max-w-6xl mx-auto px-4 py-10"><h1 className="hd font-extrabold text-4xl mb-6">Admin dashboard</h1>
+  <div className="grid sm:grid-cols-3 gap-4 mb-6">{[['Websites',sites.length],['Total likes',sites.reduce((a,s)=>a+count(s),0)],['Categories',new Set(sites.map(s=>s.c)).size]].map(([n,v])=><div key={n} className="card p-5"><div className="hd font-extrabold text-4xl">{v}</div><div className="mut text-sm">{n}</div></div>)}</div>
+  <div className="card overflow-x-auto"><table className="w-full text-left text-sm"><thead className="mut"><tr>{['Website','Category','Author','Likes',''].map(h=><th key={h} className="p-3 font-medium">{h}</th>)}</tr></thead>
+   <tbody>{sites.map(s=><tr key={s.id} style={{borderTop:'1px solid var(--line)'}}><td className="p-3 font-medium">{s.t}</td><td className="p-3">{s.c}</td><td className="p-3">{s.by}</td><td className="p-3">{count(s)}</td>
+    <td className="p-3 text-right"><button className="btn" onClick={()=>{setSites(a=>a.filter(x=>x.id!==s.id));say('Removed '+s.t)}}>Remove</button></td></tr>)}</tbody></table></div>
+  <button className="btn mt-4" onClick={()=>{setSites(SEED);say('Sample data restored')}}>Restore sample data</button></div>};
+
+const About=()=><div className="max-w-3xl mx-auto px-4 py-12"><h1 className="hd font-extrabold text-4xl">About Frameshelf</h1>
+ <p className="text-lg mt-4">Frontend developers lose hours hopping between galleries to find one good reference. Frameshelf puts the best website designs in one searchable shelf.</p>
+ <div className="grid sm:grid-cols-3 gap-4 mt-8">{[['Find','Search and filter by category, tech stack and popularity.'],['Save','Keep favorites and like the designs you admire.'],['Share','Upload your own work with a live link and palette.']].map(([t,d])=><div className="card p-5" key={t}><h3 className="hd font-bold text-xl">{t}</h3><p className="mut mt-1 text-sm">{d}</p></div>)}</div></div>;
+
+function Contact(){const{say}=useC();const[v,on,set]=useForm({n:'',e:'',m:''});const[er,setEr]=useState({});
+ const go=e=>{e.preventDefault();const x={};if(!v.n.trim())x.n='Enter your name.';if(!/^\S+@\S+\.\S+$/.test(v.e))x.e='Enter a valid email address.';if(v.m.trim().length<10)x.m='Write at least 10 characters.';setEr(x);
+  if(!Object.keys(x).length){say('Message sent. We’ll reply soon.');set({n:'',e:'',m:''})}};
+ return <div className="max-w-xl mx-auto px-4 py-12"><h1 className="hd font-extrabold text-4xl mb-6">Contact</h1><form onSubmit={go} noValidate className="card p-6">
+  <Field label="Name" err={er.n}><input className="inp" value={v.n} onChange={on('n')}/></Field><Field label="Email" err={er.e}><input className="inp" type="email" value={v.e} onChange={on('e')}/></Field>
+  <Field label="Message" err={er.m}><textarea className="inp" rows="4" value={v.m} onChange={on('m')}/></Field><button className="btn btn-p" type="submit">Send message</button></form></div>};
+
+const Footer=()=><footer className="mt-10" style={{borderTop:'1px solid var(--line)'}}><div className="max-w-6xl mx-auto px-4 py-8 flex flex-wrap justify-between gap-4 text-sm mut">
+ <span>© 2026 Frameshelf. Built for frontend developers.</span><div className="flex gap-4">{['explore','categories','about','contact'].map(k=><a key={k} href={'#'+k} className="capitalize">{k}</a>)}</div></div></footer>;
+
+function App(){const{modal}=useC();const[route,setRoute]=useState(location.hash.slice(1)||'home');
+ useEffect(()=>{const h=()=>{setRoute(location.hash.slice(1)||'home');scrollTo(0,0)};addEventListener('hashchange',h);return()=>removeEventListener('hashchange',h)},[]);
+ const P={home:Home,explore:Explore,categories:Categories,favorites:Favorites,profile:Profile,admin:Admin,about:About,contact:Contact}[route]||Home;
+ return <><a href="#main" className="sr-only focus:not-sr-only">Skip to content</a><Nav route={route}/><main id="main"><P/></main><Footer/>
+  {modal&&modal.type==='auth'&&<AuthModal/>}{modal&&modal.type==='upload'&&<UploadModal/>}{modal&&modal.type==='detail'&&<Detail id={modal.id}/>}</>};
+
+ReactDOM.createRoot(document.getElementById('root')).render(<Provider><App/></Provider>);
+</script>
+</body>
+</html>
